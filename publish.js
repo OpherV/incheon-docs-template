@@ -329,17 +329,43 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
 
                     itemsNav += "</ul>";
                 }
+
                 itemsNav += '</li>';
                 itemsSeen[item.longname] = true;
             }
         });
 
         if (itemsNav !== '') {
-            nav += '<h3>' + itemHeading + '</h3><ul>' + itemsNav + '</ul>';
+            nav += '<h3 class="'+itemHeading.toLowerCase()+'">' + itemHeading + '</h3><ul>' + itemsNav + '</ul>';
         }
     }
 
     return nav;
+}
+
+function buildTutorials(items){
+    var itemsNav = '';
+    // itemsNav += '<h3 class="tutorials">Tutorials</h3>';
+
+    itemsNav += '<ul class="tutorials">';
+    for (var y=0; y<items.length;y++){
+        recursiveBuild(items[y]);
+    }
+    itemsNav += '</ul>';
+
+    function recursiveBuild(item) {
+        itemsNav += '<li>' + tutoriallink(item.name);
+        if (item.children && item.children.length > 0) {
+            itemsNav += '<ul>';
+            for (var x = 0; x < item.children.length; x++) {
+                recursiveBuild(item.children[x]);
+            }
+            itemsNav += '</ul>';
+        }
+        itemsNav += '</li>';
+    }
+
+    return itemsNav;
 }
 
 function linktoTutorial(longName, name) {
@@ -349,6 +375,23 @@ function linktoTutorial(longName, name) {
 function linktoExternal(longName, name) {
     return linkto(longName, name.replace(/(^"|"$)/g, ''));
 }
+
+function simpleStringify (object){
+    var simpleObject = {};
+    for (var prop in object ){
+        if (!object.hasOwnProperty(prop)){
+            continue;
+        }
+        if (typeof(object[prop]) == 'object'){
+            continue;
+        }
+        if (typeof(object[prop]) == 'function'){
+            continue;
+        }
+        simpleObject[prop] = object[prop];
+    }
+    return JSON.stringify(simpleObject); // returns cleaned up JSON
+};
 
 /**
  * Create the navigation sidebar.
@@ -365,17 +408,19 @@ function linktoExternal(longName, name) {
  * @return {string} The HTML for the navigation sidebar.
  */
 function buildNav(members) {
-    var nav = '<h2><a href="index.html">Home</a></h2>';
+    var nav = '<h2 class="home"><a href="index.html">Incheon</a></h2>';
     var seen = {};
     var seenTutorials = {};
 
+    nav += "<h2>For humans</h2>";
+    nav += buildTutorials(members.tutorials);
+    nav += "<h2>For Machines</h2>";
     nav += buildMemberNav(members.classes, 'Classes', seen, linkto);
     nav += buildMemberNav(members.modules, 'Modules', {}, linkto);
     nav += buildMemberNav(members.externals, 'Externals', seen, linktoExternal);
     nav += buildMemberNav(members.events, 'Events', seen, linkto);
     nav += buildMemberNav(members.namespaces, 'Namespaces', seen, linkto);
     nav += buildMemberNav(members.mixins, 'Mixins', seen, linkto);
-    nav += buildMemberNav(members.tutorials, 'Tutorials', seenTutorials, linktoTutorial);
     nav += buildMemberNav(members.interfaces, 'Interfaces', seen, linkto);
 
     if (members.globals.length) {
