@@ -10,6 +10,7 @@ var taffy = require('taffydb').taffy;
 var template = require('jsdoc/template');
 var util = require('util');
 
+
 var htmlsafe = helper.htmlsafe;
 var linkto = helper.linkto;
 var resolveAuthorLinks = helper.resolveAuthorLinks;
@@ -21,12 +22,14 @@ var view;
 
 var outdir = path.normalize(env.opts.destination);
 
+var TUTORIAL_PREFIX = "h-";
+
 function find(spec) {
     return helper.find(data, spec);
 }
 
 function tutoriallink(tutorial) {
-    return helper.toTutorial(tutorial, null, { tag: 'em', classname: 'disabled', prefix: 'Tutorial: ' });
+    return helper.toTutorial(tutorial, null, { tag: 'em', classname: 'disabled', prefix: 'Tutorial: ' }).replace("tutorial-",TUTORIAL_PREFIX);
 }
 
 function getAncestorLinks(doclet) {
@@ -709,10 +712,21 @@ exports.publish = function(taffyData, opts, tutorials) {
         fs.writeFileSync(tutorialPath, html, 'utf8');
     }
 
+    function extractFilename(path) {
+        var x;
+        x = path.lastIndexOf('/');
+        if (x >= 0) // Unix-based path
+            return path.substr(0, x);
+        x = path.lastIndexOf('\\');
+        if (x >= 0) // Windows-based path
+            return path.substr(0, x);
+        return path; // just the filename
+    }
+
     // tutorials can have only one parent so there is no risk for loops
     function saveChildren(node) {
         node.children.forEach(function(child) {
-            generateTutorial('Tutorial: ' + child.title, child, helper.tutorialToUrl(child.name));
+            generateTutorial('Tutorial: ' + child.title, child, helper.tutorialToUrl(child.name).replace("tutorial-",TUTORIAL_PREFIX));
             saveChildren(child);
         });
     }
