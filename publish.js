@@ -22,7 +22,7 @@ var view;
 
 var outdir = path.normalize(env.opts.destination);
 
-var TUTORIAL_PREFIX = "h-";
+var TUTORIAL_PREFIX = "tutorial-";
 
 function find(spec) {
     return helper.find(data, spec);
@@ -415,9 +415,9 @@ function buildNav(members) {
     var seen = {};
     var seenTutorials = {};
 
-    nav += "<h2>For humans</h2>";
+    nav += "<h2>Concepts</h2>";
     nav += buildTutorials(members.tutorials);
-    nav += "<h2>For Machines</h2>";
+    nav += "<h2>API Reference</h2>";
     nav += buildMemberNav(members.classes, 'Classes', seen, linkto);
     nav += buildMemberNav(members.modules, 'Modules', {}, linkto);
     nav += buildMemberNav(members.externals, 'Externals', seen, linktoExternal);
