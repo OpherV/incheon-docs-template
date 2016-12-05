@@ -147,6 +147,7 @@ nav h3 {
   line-height: 24px;
   margin: 15px 0 10px;
   padding: 0;
+  color: #aaaaaa;
 }
 
 nav ul {
@@ -584,6 +585,15 @@ nav h2.home{
 nav h2.home a{
   transition: all 0.1s ease-in;
   color: #68b2f8;
+  text-indent: -5000px;
+  background-image: url(https://cloud.githubusercontent.com/assets/3951311/20895232/3faf628a-bb21-11e6-8a57-de8a536417c7.png);
+  background-repeat:no-repeat;
+  background-size: contain;
+  background-position: center;
+  display: block;
+  width:  90%;
+  height: 86px;
+  margin: 20px 0;
 }
 
 nav h2.home a:hover{
