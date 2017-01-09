@@ -214,9 +214,10 @@ footer {
   color: hsl(0, 0%, 28%);
   margin-left: 290px;
   display: block;
-  padding: 15px;
+  padding: 30px;
   font-style: italic;
   font-size: 90%;
+  border-top: 1px solid #f3f3f3;
 }
 
 .ancestors {
