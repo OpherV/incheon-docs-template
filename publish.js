@@ -352,16 +352,21 @@ function buildTutorials(items){
 
     itemsNav += '<ul class="tutorials">';
     for (var y=0; y<items.length;y++){
-        recursiveBuild(items[y]);
+        recursiveBuild(items[y], 0);
     }
     itemsNav += '</ul>';
 
-    function recursiveBuild(item) {
-        itemsNav += '<li>' + tutoriallink(item.name);
+    function recursiveBuild(item, level) {
+        if (level == 0 ){
+            itemsNav += `<li><span class='category'>${item.title}`;
+        }
+        else{
+            itemsNav += '<li>' + tutoriallink(item.name);
+        }
         if (item.children && item.children.length > 0) {
             itemsNav += '<ul>';
             for (var x = 0; x < item.children.length; x++) {
-                recursiveBuild(item.children[x]);
+                recursiveBuild(item.children[x], level + 1);
             }
             itemsNav += '</ul>';
         }

@@ -15,7 +15,7 @@ body {
 
   font-family: "proxima-nova", sans-serif;
   font-size: 16px;
-  line-height: 160%;
+  line-height: 1.2rem;
 }
 
 a,
@@ -187,7 +187,7 @@ nav ul ul {
 }
 
 nav ul ul a {
-  color: hsl(207, 1%, 40%);
+  color: hsl(220, 4%, 87%);
 }
 
 nav ul ul a,
@@ -621,4 +621,9 @@ h2{
   color: #bcbcbc;
   padding-bottom: 10px;
   border-bottom: 1px solid #f8f8f8;
+}
+
+nav .category{
+  font-size: 12px;
+  color: #808080;
 }
