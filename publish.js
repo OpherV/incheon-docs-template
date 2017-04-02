@@ -416,7 +416,7 @@ function simpleStringify (object){
  * @return {string} The HTML for the navigation sidebar.
  */
 function buildNav(members) {
-    var nav = '<h2 class="home"><a href="index.html">Incheon</a></h2>';
+    var nav = '<h2 class="home"><a href="index.html">Lance</a></h2>';
     var seen = {};
     var seenTutorials = {};
 
