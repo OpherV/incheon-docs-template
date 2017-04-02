@@ -1,6 +1,6 @@
-# Incheon docs template
+# Lance docs template
 
-The theme for [Incheon](https://incheon.gg) docs. 
+The theme for [Lance](https://lance.gg) docs. 
  
  Supports nested articles ("tutorials")
 
